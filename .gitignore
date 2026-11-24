@@ -1,0 +1,13 @@
+# With `seed: {self: true, into: home}` this repository is checked out at the
+# agent's HOME (/home/agent), which also holds secrets and runtime state (.ssh,
+# .claude, .config, work/, ...). Ignore everything at the top level, then
+# re-include only the kit files, so `git add -A` there is safe.
+/*
+
+!/.gitignore
+!/.agents/
+!/kit.yaml
+!/LICENSE
+!/README.md
+
+.DS_Store

@@ -1,0 +1,31 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/dam-agents/dam-starter-kits/main/kit.schema.json
+schemaVersion: v1
+id: bug-triage
+name: Bug Triage
+description: >-
+  Triages open bug reports in the repositories you connect. For each bug issue that has
+  not been triaged yet, the agent reads the report, reproduces the failure where it can,
+  traces the data back to where valid state first goes wrong, and posts a triage comment
+  with the evidence, a ranked root-cause hypothesis and the files it suspects. It does not
+  change code, open pull requests, edit issues or change labels.
+tagline: Find the likely root cause of new bug reports before anyone starts patching.
+category: software
+icon: bug
+harnesses: [claude-code]
+docsUrl: https://github.com/adigidh/bug-triage-starter-kit
+# `self` is this repository at the commit the kit resolved to, so the agent runs
+# the skill this file shipped with. `home`, because the checkout is /home/agent
+# itself; the allowlist .gitignore makes that safe.
+seed:
+  self: true
+  into: home
+connections:
+  - accepts: [github, github-enterprise]
+    required: true
+    note: >-
+      The agent reads issues and the code they refer to, and posts triage comments.
+      Grant read access to the repositories and permission to comment on issues. It does
+      not need permission to push, open pull requests, merge or change labels.
+bundledSkills:
+  path: .agents/skills
+egressPreset: trusted
